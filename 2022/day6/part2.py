@@ -17,6 +17,8 @@ assert 23 == parse('bvwbjplbgvbhsrlpgdmjqwftvncz')
 assert 23 == parse('nppdvjthqldpwncqszvftbrmjlhg')
 assert 29 == parse('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg')
 assert 26 == parse('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw')
+assert None == parse('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+assert None == parse('a')
 
 with open('input.txt', 'r') as fs:
     lines = fs.readlines()
