@@ -2,7 +2,8 @@ from collections import deque
 import copy
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+# logger.setLevel(logging.DEBUG)
 
 def parse_map(file):
     with open(file, mode='r') as fs:
@@ -82,7 +83,6 @@ def run(map, position, end_position):
                 return step_count
             visited_history.add(neighbor)
             to_process.append((step_count + 1, neighbor))
-        logger.debug(to_process)
 
 assert 31 == game('test.txt')
 print('Answer1 : %s' % game('input.txt'))
