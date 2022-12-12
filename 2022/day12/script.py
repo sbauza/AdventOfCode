@@ -1,8 +1,10 @@
 from collections import deque
 import logging
+import os
 
-logger = logging.getLogger(__name__)
-# logger.setLevel(logging.DEBUG)
+log = logging.getLogger(__name__)
+if os.environ.get('DEBUG'):
+    logging.basicConfig(level=logging.DEBUG)
 
 def parse_map(file):
     with open(file, mode='r') as fs:
@@ -70,15 +72,15 @@ def run(map, position, end_position):
             if ord(map[x][y]) - ord(letter_pos) > 1:
                 # there is at least one letter between the position and
                 # the neighbor
-                logger.debug('Skip %s due to %s too higher than %s' % (
+                log.debug('Skip %s due to %s too higher than %s' % (
                     neighbor, map[x][y], letter_pos))
                 continue
             if neighbor in visited_history:
-                logger.debug('Skip because (%s,%s) already visited' % neighbor)
+                log.debug('Skip because (%s,%s) already visited' % neighbor)
                 continue
             if neighbor == end_position:
                 step_count += 1
-                logger.debug('Exit found in %s steps' % step_count )
+                log.debug('Exit found in %s steps' % step_count )
                 return step_count
             visited_history.add(neighbor)
             to_process.append((step_count + 1, neighbor))
