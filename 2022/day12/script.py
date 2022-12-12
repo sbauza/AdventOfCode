@@ -1,5 +1,4 @@
 from collections import deque
-import copy
 import logging
 
 logger = logging.getLogger(__name__)
