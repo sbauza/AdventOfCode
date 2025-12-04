@@ -5,32 +5,28 @@ def read_file(file):
     return lines
 
 
-from itertools import islice
-
 def find_max_substr(digits, k):
     n = len(digits)
     if k > n:
         return digits
-
+    
     result = []
     start = 0
-
-    from functools import reduce
-
-    def picker(acc, _):
-        result, start, i = acc
+    
+    for i in range(k):
         remaining_needed = k - i - 1
         end = n - remaining_needed
-        window = list(islice(digits, start, end))
-        if not window:
-            return (result, start, i)  # No change
-        max_digit, max_idx = max(((digit, idx) for idx, digit in enumerate(window)), key=lambda x: x[0])
-        result = result + [max_digit]
-        start = start + max_idx + 1
-        return (result, start, i + 1)
-
-    result, start, _ = reduce(picker, range(k), ([], 0, 0))
-
+        
+        max_digit = -1
+        max_pos = start
+        for pos in range(start, end):
+            if digits[pos] > max_digit:
+                max_digit = digits[pos]
+                max_pos = pos
+        
+        result.append(max_digit)
+        start = max_pos + 1
+    
     return result
 
 
