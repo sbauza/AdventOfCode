@@ -24,15 +24,20 @@ def is_available(map, row, col):
     return rolls < 4
 
 def round_rolls(map, _sum):
-    removed = False
+    # First: collect all cells to remove based on current state
+    to_remove = []
     for row, line in enumerate(map):
         for col, char in enumerate(line):
             if char == '@':
                 if is_available(map, row, col):
-                    map[row][col] = '.'
-                    _sum += 1
-                    removed = True
-    return removed, _sum
+                    to_remove.append((row, col))
+
+    # Then: remove them all at once
+    for row, col in to_remove:
+        map[row][col] = '.'
+
+    _sum += len(to_remove)
+    return len(to_remove) > 0, _sum
 
 def sum_digits(file):
     lines = read_file(file)
